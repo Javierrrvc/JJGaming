@@ -58,7 +58,7 @@ h1,h2{font-family:'Space Grotesk',sans-serif;}
 .prod-card{background:#fff;border:1.5px solid var(--border);border-radius:16px;cursor:pointer;transition:all .2s;box-shadow:var(--shadow);overflow:hidden;}
 .prod-card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:var(--shadow-md);}
 .prod-card:active{transform:translateY(-1px);}
-.prod-img{width:100%;height:150px;object-fit:cover;background:var(--bg3);display:block;}
+.prod-img{width:100%;height:180px;object-fit:contain;background:#f8fafc;display:block;padding:8px;}
 .prod-img-placeholder{width:100%;height:150px;background:var(--accent-light);display:flex;align-items:center;justify-content:center;font-size:36px;}
 .prod-body{padding:14px;}
 .prod-name{font-size:13px;font-weight:700;margin-bottom:3px;line-height:1.3;color:var(--text);}
@@ -76,7 +76,7 @@ h1,h2{font-family:'Space Grotesk',sans-serif;}
 
 /* MEDIA GALLERY */
 .media-gallery{width:100%;background:var(--bg3);overflow:hidden;position:relative;}
-.media-main{width:100%;height:240px;object-fit:cover;display:block;}
+.media-main{width:100%;height:260px;object-fit:contain;background:#f8fafc;display:block;}
 .media-main-video{width:100%;height:240px;object-fit:cover;display:block;}
 .media-main-placeholder{width:100%;height:240px;background:var(--accent-light);display:flex;align-items:center;justify-content:center;font-size:56px;}
 .media-thumbs{display:flex;gap:6px;padding:8px 12px;overflow-x:auto;background:#fff;border-bottom:1px solid var(--border);}
@@ -229,7 +229,7 @@ function renderGrid(){
       thumb='<div class="prod-img-placeholder">🎬</div>';
     } else {
       const fixedUrl=fixMediaUrl(media.url);
-      thumb='<img class="prod-img" src="'+fixedUrl+'" alt="'+p.nombre+'" loading="lazy" onerror="this.src=\'\';this.parentElement.querySelector(\'.prod-img-placeholder\').style.display=\'flex\';this.style.display=\'none\'">'+'<div class="prod-img-placeholder" style="display:none">'+(CAT_ICONS[p.cat]||'📋')+'</div>';
+      thumb='<img class="prod-img" src="'+fixedUrl+'" alt="'+p.nombre+'" loading="lazy" onerror="this.onerror=null;this.src=\'\';this.style.display=\'none\'">';
     }
     return `<div class="prod-card" onclick="openDetail(${p.id})">
       ${thumb}
@@ -310,10 +310,22 @@ Precio: ${fmt(p.precio)}
 
 function renderMainMedia(m){
   const gallery=document.getElementById('d-gallery');
+  gallery.innerHTML='';
   if(m.type==='video'){
-    gallery.innerHTML=`<video class="media-main-video" controls autoplay muted playsinline src="${fixMediaUrl(m.url)}"></video>`;
+    const v=document.createElement('video');
+    v.className='media-main-video';
+    v.controls=true;v.muted=true;v.playsInline=true;
+    v.src=fixMediaUrl(m.url);
+    gallery.appendChild(v);
   } else {
-    gallery.innerHTML=`<img class="media-main" src="${fixMediaUrl(m.url)}" alt="Producto" onerror="this.parentElement.innerHTML='<div class=\"media-main-placeholder\">📷</div>'">`;
+    const img=document.createElement('img');
+    img.className='media-main';
+    img.alt='Producto';
+    img.style.objectFit='contain';
+    img.style.background='#f8fafc';
+    img.onerror=function(){this.onerror=null;gallery.innerHTML='<div class="media-main-placeholder">📷</div>';};
+    img.src=fixMediaUrl(m.url);
+    gallery.appendChild(img);
   }
 }
 
