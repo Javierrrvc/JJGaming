@@ -22,8 +22,8 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 h1,h2{font-family:'Space Grotesk',sans-serif;}
 
 /* HEADER */
-.header{background:#0f1f35;padding:14px 20px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:50;box-shadow:0 2px 8px rgba(0,0,0,.2);}
-.header-logo{width:56px;height:56px;object-fit:contain;flex-shrink:0;}
+.header{background:#0f1f35;padding:10px 20px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:50;box-shadow:0 2px 8px rgba(0,0,0,.2);}
+.header-logo{width:90px;height:90px;object-fit:contain;flex-shrink:0;}
 .header-info{flex:1;}
 .header-title{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:#fff;}
 .header-title span{color:#f97316;}
@@ -273,7 +273,7 @@ function openDetail(id){
       thumbsEl.style.display='flex';
       thumbsEl.innerHTML=media.map((m,i)=>{
         if(m.type==='video') return '<div class="media-thumb-video'+(i===0?' active':'')+'" onclick="selectMedia('+i+')" title="Video">🎬</div>';
-        return '<img class="media-thumb'+(i===0?' active':'')+'" src="'+fixMediaUrl(m.url)+'" onclick="selectMedia('+i+')" onerror="this.style.display='none'">';
+        return '<img class="media-thumb'+(i===0?' active':'')+'" src="'+fixMediaUrl(m.url)+'" onclick="selectMedia('+i+')" onerror="this.style.display=\"none\"">';
       }).join('');
       // Show arrows
       document.getElementById('d-arrow-prev').style.display='flex';
