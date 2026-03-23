@@ -1,2 +1,0 @@
-# JJGaming
-JJGaming Web's
