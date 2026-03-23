@@ -1087,7 +1087,7 @@ function printInvoice(id){
       </div>
       <div>
         <div class="fp-label">Condición</div>
-        <div class="fp-val">${f.pago||'Contado Efectivo'}</div>
+        <div class="fp-val">${(f.pago||'Contado Efectivo').replace(' + ','<br>')}</div>
         <div class="fp-divider"></div>
         <div class="fp-label" style="margin-top:5px;">Vendedor</div>
         <div class="fp-val-sm">${f.vendedor||'JJGaming'}</div>
