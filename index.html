@@ -722,7 +722,7 @@ function toggleSidebar(){document.getElementById('sidebar').classList.toggle('op
 function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sidebar-overlay').classList.remove('open');}
 
 // LOGIN
-async function doLogin(){
+window.doLogin = async function doLogin(){
   const usuario=document.getElementById('l-user').value.trim();
   const password=document.getElementById('l-pass').value;
   if(!usuario||!password){document.getElementById('login-err').textContent='Completa todos los campos';return;}
