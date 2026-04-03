@@ -1525,18 +1525,8 @@ function printInvoice(id){
 }
 function sendWhatsApp(id){
   const f=facturas.find(x=>x.id===id);if(!f)return;
-  const lines=(f.items||[]).map(i=>`• ${i.nombre} x${i.qty}: ${fmt(i.precio*i.qty)}`).join('
-');
-  const msg=`*Factura ${f.numero} — JJGaming*
-Cliente: ${f.cliente}
-Fecha: ${f.fecha}
-
-${lines}
-
-*TOTAL: ${fmt(f.total)}*
-
-Gracias por su preferencia 🎮
-Tel. 809-224-9490`;
+  const itemLines=(f.items||[]).map(i=>'• '+i.nombre+' x'+i.qty+': '+fmt(i.precio*i.qty)).join('\n');
+  const msg='*Factura '+f.numero+' — JJGaming*'+'\n'+'Cliente: '+f.cliente+'\n'+'Fecha: '+f.fecha+'\n\n'+itemLines+'\n\n'+'*TOTAL: '+fmt(f.total)+'*'+'\n\n'+'Gracias por su preferencia 🎮'+'\n'+'Tel. 809-224-9490';
   const phone=f.telefono?f.telefono.replace(/\D/g,''):'';
   const num=phone?'1809'+phone.slice(-7):WA_NUMBER;
   window.open('https://wa.me/'+num+'?text='+encodeURIComponent(msg),'_blank');
